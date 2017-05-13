@@ -21,7 +21,7 @@ include $(CLEAR_VARS)
 TARGET_ARCH := arm
 TARGET_ARCH_ABI := arm64-v8a
 LOCAL_SRC_FILES := \
-  dirtycow.c \
+  dcow.c \
   shared.c \
   stage.c
 
